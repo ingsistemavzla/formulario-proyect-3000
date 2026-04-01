@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Escala global más compacta para móviles (≈20% menos) */
+  @media (max-width: 640px) {
+    html {
+      font-size: 13px; /* por defecto ~16px → reducimos tipografía global en móvil */
+    }
+
+    body {
+      line-height: 1.35;
+    }
+  }
+
+  * {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  
+  html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+  
+  body {
+    @apply bg-gray-50 text-gray-900 antialiased;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Estilos de impresión para facturas */
+@media print {
+  body {
+    padding: 0;
+    background: white;
+  }
+  
+  .print\:hidden {
+    display: none !important;
+  }
+}
+
+/* Animaciones personalizadas para landing page */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animate-float {
+  animation: float 8s ease-in-out infinite;
+}
+
+/* Componente recreado desde cero con lógica más simple.
+   Ahora usa un solo componente que cambia su layout según el breakpoint:
+   - Móvil: usa "flex sm:hidden" (2 columnas)
+   - Desktop: usa "hidden sm:flex" (4 columnas) */
