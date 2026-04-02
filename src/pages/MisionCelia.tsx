@@ -63,14 +63,24 @@ export function MisionCelia() {
               <div className="flex items-start gap-3 rounded-r-xl border-l-[5px] border-coach-500 bg-coach-light py-3 pl-4 pr-3 text-sm font-medium leading-relaxed text-slate-800">
                 <Target className="mt-0.5 h-8 w-8 shrink-0 text-coach-600" strokeWidth={1.75} />
                 <p>
-                  Esta iniciativa tiene como objetivo financiar mediante mi trabajo profesional una intervención médica para mi abuela. Estoy abriendo 30
-                  cupos exclusivos para el desarrollo de sitios web optimizados en velocidad, carga y conversión.
+                  <span className="text-coach-600">Esta iniciativa</span> financia mediante{' '}
+                  <strong className="font-semibold text-coach-900">mi trabajo profesional</strong> una{' '}
+                  <strong className="font-semibold text-coach-900">intervención médica</strong> para mi abuela.{' '}
+                  <span className="font-semibold text-sky-700">30 cupos</span> para{' '}
+                  <strong className="text-coach-900">sitios web</strong> optimizados en{' '}
+                  <span className="text-coach-600 font-semibold">velocidad</span>,{' '}
+                  <span className="text-coach-600 font-semibold">carga</span> y{' '}
+                  <span className="text-coach-600 font-semibold">conversión</span>.
                 </p>
               </div>
 
               <p className="mt-5 text-sm leading-relaxed text-slate-800 sm:text-base">
-                Cada proyecto representa un compromiso directo con la calidad técnica y el bienestar de mi familia. Busco colaborar con 30 clientes que
-                necesiten una infraestructura digital sólida y valoren el respaldo de un ingeniero dedicado.
+                <strong className="text-coach-900">Proyecto 3000:</strong>{' '}
+                <span className="font-semibold text-coach-800">sitios de alto rendimiento</span> (
+                <span className="text-coach-600 font-medium">velocidad</span>,{' '}
+                <span className="text-coach-600 font-medium">accesibilidad</span>,{' '}
+                <span className="text-coach-600 font-medium">conversión</span>). Compromiso con la calidad técnica y mi familia. Busco{' '}
+                <strong className="text-coach-900">30 clientes</strong> con infraestructura digital sólida y respaldo de ingeniero.
               </p>
 
               <div className="mt-5 grid gap-3 sm:grid-cols-3">
@@ -117,13 +127,14 @@ export function MisionCelia() {
                 <p className="mt-1.5 text-center text-[0.65rem] text-slate-500">Cupos en curso respecto a los 30 disponibles</p>
               </div>
 
-              <div className="mt-6 border-t border-slate-100 pt-6">
-                <h2 className="font-display text-base font-semibold text-coach-900 sm:text-lg">
+              <div className="mt-6 rounded-xl border border-coach-100 bg-gradient-to-br from-coach-light via-sky-50/90 to-coach-light/80 px-4 py-4 sm:px-5 sm:py-5">
+                <h2 className="font-display text-base font-bold text-coach-900 sm:text-lg">
                   Requerimientos Técnicos y Reserva de Cupo
                 </h2>
                 <p className="mt-2 text-sm leading-relaxed text-slate-700 sm:text-base">
-                  Por favor, complete los datos de su proyecto para definir la arquitectura. Con esta información genero el diagnóstico técnico y procedo con
-                  el inicio del desarrollo vía WhatsApp.
+                  Complete los datos del proyecto para definir la <strong className="text-coach-800">arquitectura</strong>. Con ellos preparo el{' '}
+                  <span className="text-coach-600 font-medium">diagnóstico técnico</span> y coordino el siguiente paso por{' '}
+                  <strong className="text-coach-900">WhatsApp</strong>.
                 </p>
               </div>
             </div>
