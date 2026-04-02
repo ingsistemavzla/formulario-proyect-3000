@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/Input'
 import { cn } from '@/utils/cn'
 
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xvzvqjbb'
+/** +58 412 356 3070 */
 const WHATSAPP_NUMBER = '584123563070'
 
 const ACTIVITY_OPTIONS = [
@@ -12,7 +13,15 @@ const ACTIVITY_OPTIONS = [
   'Negocio Local (Restaurante, Estética, Taller)',
 ] as const
 
-const TIMELINE_OPTIONS = ['7 días', '15 días', '30 días'] as const
+const VISUAL_STYLE_OPTIONS = [
+  'Audaz y Moderno: (Fuertes contrastes, tipografías grandes, ideal para Tech/Agencias).',
+  'Contemporáneo y Limpio: (Minimalismo tipo Apple, mucho aire, ideal para Servicios/Salud).',
+  'Clásico y Conservador: (Elegancia sobria, fuentes con serifa, ideal para Legal/Finanzas).',
+] as const
+
+const PAYMENT_LINES_WHATSAPP = `Datos de pago ($99 · Proyecto 3000):
+Zelle → Sandryquezada@gmail.com (Sandra Quezada Da Silva)
+Binance → gabrieldelgado110@gmail.com | User: ingenierogd10 | UID: 336165001`
 
 const fieldClass =
   'rounded-[12px] border-gray-300 shadow-sm transition-all hover:border-coach-500/40 focus:border-coach-700 focus:ring-coach-700'
@@ -21,10 +30,39 @@ function Helper({ children }: { children: ReactNode }) {
   return <p className="mt-1 text-xs text-slate-500">{children}</p>
 }
 
+function SectorGuide() {
+  return (
+    <div className="mt-2 rounded-lg border border-slate-100 bg-slate-50 p-3 text-xs text-slate-500">
+      <p className="font-semibold text-slate-600">💡 Guía rápida para elegir:</p>
+      <ul className="mt-2 list-none space-y-2 pl-0">
+        <li>
+          <strong className="text-slate-700">Servicios Profesionales:</strong> Si vendes tu conocimiento (Abogados, Médicos, Coaches, Agencias, Freelance).
+        </li>
+        <li>
+          <strong className="text-slate-700">Venta de Productos:</strong> Si tienes un inventario físico o digital que quieres mostrar (Tiendas de ropa, gadgets,
+          cursos).
+        </li>
+        <li>
+          <strong className="text-slate-700">Negocio Local:</strong> Si tu fuerza es el punto físico y la atención directa (Restaurantes, Talleres, Estéticas,
+          Clínicas locales).
+        </li>
+      </ul>
+    </div>
+  )
+}
+
 function ReservationFicha({ clientName, businessName }: { clientName: string; businessName: string }) {
-  const waHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-    `Hola Gabriel, acabo de enviar mi solicitud para ${businessName}. Aquí tienes el comprobante de pago.`
-  )}`
+  const waBody = [
+    `Hola Gabriel, acabo de enviar mi solicitud para ${businessName}.`,
+    '',
+    'Adjunto el comprobante de pago de $99 para asegurar mi cupo (Proyecto 3000).',
+    '',
+    PAYMENT_LINES_WHATSAPP,
+    '',
+    'Quedo atento/a a la confirmación.',
+  ].join('\n')
+
+  const waHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(waBody)}`
 
   return (
     <div
@@ -85,10 +123,10 @@ function ReservationFicha({ clientName, businessName }: { clientName: string; bu
             'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#25D366]'
           )}
         >
-          Enviar Comprobante por WhatsApp
+          Enviar Comprobante por WhatsApp (+58 412 356 3070)
         </a>
         <p className="mt-3 text-center text-xs text-slate-500">
-          Se abrirá WhatsApp con un mensaje prellenado; adjunta tu capture de pago antes de enviar.
+          El mensaje incluye Zelle (Sandra) y Binance (Gabriel) para que no pierdas los datos. Adjunta tu capture de pago antes de enviar.
         </p>
       </footer>
     </div>
@@ -100,8 +138,8 @@ export function ContactForm() {
   const [businessName, setBusinessName] = useState('')
   const [activity, setActivity] = useState<string>('')
   const [valueProposition, setValueProposition] = useState('')
-  const [currentWebsite, setCurrentWebsite] = useState('')
-  const [timeline, setTimeline] = useState<string>('')
+  const [identityReferences, setIdentityReferences] = useState('')
+  const [visualStyle, setVisualStyle] = useState<string>('')
   const [email, setEmail] = useState('')
   const [whatsapp, setWhatsapp] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'error'>('idle')
@@ -121,10 +159,10 @@ export function ContactForm() {
     data.append('business_name', trimmedBusiness)
     data.append('activity', activity)
     data.append('value_proposition', valueProposition.trim())
-    if (currentWebsite.trim()) {
-      data.append('current_website', currentWebsite.trim())
+    if (identityReferences.trim()) {
+      data.append('identity_references', identityReferences.trim())
     }
-    data.append('timeline', timeline)
+    data.append('visual_style', visualStyle)
     data.append('email', email.trim())
     data.append('whatsapp', whatsapp.trim())
     data.append('_subject', 'Proyecto 3000 — Gabriel Delgado')
@@ -213,6 +251,7 @@ export function ContactForm() {
             ))}
           </select>
           <Helper>Esto me ayuda a elegir la arquitectura de carga (SSG o Dinámica) más eficiente para ti.</Helper>
+          <SectorGuide />
         </div>
 
         <div className="w-full">
@@ -237,48 +276,50 @@ export function ContactForm() {
         </div>
 
         <div className="w-full">
-          <label htmlFor="current_website" className="mb-1.5 block text-sm font-semibold text-neutral-800">
-            ¿Tienes sitio web actual? <span className="font-normal text-slate-500">(opcional)</span>
+          <label htmlFor="identity_references" className="mb-1.5 block text-sm font-semibold text-neutral-800">
+            ¿Tienes una web actual, referencia o nombre ideal para tu dominio?{' '}
+            <span className="font-normal text-slate-500">(opcional)</span>
           </label>
           <Input
-            id="current_website"
-            name="current_website"
+            id="identity_references"
+            name="identity_references"
             type="text"
-            placeholder="https://tu-sitio.com o déjalo vacío"
-            autoComplete="url"
-            value={currentWebsite}
-            onChange={(e) => setCurrentWebsite(e.target.value)}
+            placeholder="URL, referencia o el dominio que imaginas"
+            value={identityReferences}
+            onChange={(e) => setIdentityReferences(e.target.value)}
             className={fieldClass}
           />
-          <Helper>Para analizar tu competencia y mejorar lo que ya tienes.</Helper>
+          <Helper>
+            Dime si ya tienes una página, algún sitio que te guste como referencia o simplemente el nombre que sueñas para tu dirección web.
+          </Helper>
         </div>
 
         <div className="w-full">
-          <label htmlFor="timeline" className="mb-1.5 block text-sm font-semibold text-neutral-800">
-            ¿En qué tiempo necesitas el sitio?
+          <label htmlFor="visual_style" className="mb-1.5 block text-sm font-semibold text-neutral-800">
+            ¿Qué personalidad visual buscas para tu sitio?
           </label>
           <select
-            id="timeline"
-            name="timeline"
+            id="visual_style"
+            name="visual_style"
             required
-            value={timeline}
-            onChange={(e) => setTimeline(e.target.value)}
+            value={visualStyle}
+            onChange={(e) => setVisualStyle(e.target.value)}
             className={cn(
-              'w-full border bg-white px-4 py-2 text-neutral-800',
+              'w-full border bg-white px-4 py-2 text-sm text-neutral-800 sm:text-base',
               fieldClass,
               'focus:outline-none focus:ring-2'
             )}
           >
             <option value="" disabled>
-              Selecciona un plazo
+              Elige la personalidad visual
             </option>
-            {TIMELINE_OPTIONS.map((opt) => (
+            {VISUAL_STYLE_OPTIONS.map((opt) => (
               <option key={opt} value={opt}>
                 {opt}
               </option>
             ))}
           </select>
-          <Helper>Priorizo proyectos según urgencia y complejidad.</Helper>
+          <Helper>Esto define la tipografía, los colores y la fuerza del diseño.</Helper>
         </div>
 
         <Input
@@ -298,7 +339,7 @@ export function ContactForm() {
             name="whatsapp"
             type="tel"
             label="WhatsApp"
-            placeholder="+58 412 0000000"
+            placeholder="+58 412 356 3070"
             required
             autoComplete="tel"
             value={whatsapp}
@@ -307,6 +348,11 @@ export function ContactForm() {
           />
           <Helper>Te escribiré personalmente para coordinar el despliegue técnico.</Helper>
         </div>
+
+        <p className="rounded-lg border border-coach-100 bg-coach-light/60 px-3 py-2.5 text-xs leading-relaxed text-coach-900 sm:text-sm">
+          <strong className="font-semibold">Recordatorio:</strong> Tu sitio será entregado en un bloque de{' '}
+          <strong>48 a 72 horas</strong> tras la confirmación del pago.
+        </p>
 
         <div className="flex flex-col gap-3 pt-2">
           <Button
